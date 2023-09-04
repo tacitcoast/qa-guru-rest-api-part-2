@@ -6,6 +6,17 @@ from selene.support.shared import browser
 from selenium import webdriver
 
 
+# Настройки для запуска тестов на IOS, в связи с последними изменениями в selene: в binary_location - путь до chrome, чтоб тесты шли в обычный хром
+@pytest.fixture(scope='function', autouse=True)
+def browser_management():
+    browser.config.driver_options = webdriver.ChromeOptions()
+    browser.config.driver_options.binary_location = ('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
+
+    yield
+
+    browser.quit()
+
+
 LOGIN = "example1200@example.com"
 PASSWORD = "123456"
 WEB_URL = "https://demowebshop.tricentis.com/"
